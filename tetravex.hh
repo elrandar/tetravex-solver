@@ -6,26 +6,24 @@
 #define TETRAVEX_SOLVER_TETRAVEX_HH
 
 #include <iostream>
+#include <vector>
 
-class Tile {
-    int up;
-    int left;
-    int right;
-    int down;
-};
-
-template<unsigned T>
-class Tetravex {
-private:
-    Tile board[T*T];
-
-public:
-    Tetravex()
-    {
-
+namespace tetrasolver {
+    struct Tile {
+        int up;
+        int left;
+        int right;
+        int down;
+        bool frozen;
     };
-    Tetravex(std::string input);
-};
 
+    class Tetravex {
+    public:
+        unsigned size;
+        std::vector<Tile> board;
+
+        Tetravex(const std::string& input, unsigned size);
+    };
+}
 
 #endif //TETRAVEX_SOLVER_TETRAVEX_HH

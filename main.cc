@@ -3,11 +3,14 @@
 //
 
 #include "tetravex.hh"
-#include "iostream"
+#include "io.hh"
+#include <iostream>
 
 int main(int argc, char** argv)
 {
-    auto tetra = Tetravex<3>();
+    auto tetra = tetrasolver::tetravex_from_file("../input.txt");
     std::cout << "1";
+
+    tetrasolver::tetravex_to_file(tetra, "out.txt");
     return 0;
 }

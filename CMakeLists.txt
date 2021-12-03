@@ -1,4 +1,5 @@
 
 project(tetravex-solver)
 
-add_executable(tetra-solver main.cc tetravex.cc)
+set(CMAKE_CXX_STANDARD 17)
+add_executable(tetra-solver main.cc tetravex.cc io.cc)

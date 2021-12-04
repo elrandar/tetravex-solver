@@ -15,6 +15,10 @@ namespace tetrasolver {
         int right;
         int down;
         bool frozen;
+
+        Tile();
+
+        int &operator[](int i);
     };
 
     class Tetravex {
@@ -22,7 +26,9 @@ namespace tetrasolver {
         unsigned size;
         std::vector<Tile> board;
 
-        Tetravex(const std::string& input, unsigned size);
+        Tetravex(unsigned size);
+
+        Tetravex(const std::string &input, unsigned size);
     };
 }
 

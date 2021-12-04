@@ -4,13 +4,25 @@
 
 #include "tetravex.hh"
 #include "io.hh"
+#include "solver.hh"
+#include "generate.hh"
 #include <iostream>
 
 int main(int argc, char** argv)
 {
-    auto tetra = tetrasolver::tetravex_from_file("../input.txt");
-    std::cout << "1";
+    if (argc != 3) {
+        std::cout << "You must specify the input and output file";
+        exit(1);
+    }
 
-    tetrasolver::tetravex_to_file(tetra, "out.txt");
+    auto tetra = tetrasolver::generate_tetravex(2, 42, false);
+
+//    auto tetra = tetrasolver::tetravex_from_file(argv[1]);
+
+    auto solver = tetrasolver::Solver(tetra, 30000000);
+    solver.solve();
+
+    tetrasolver::tetravex_to_file(tetra, argv[2]);
+
     return 0;
 }

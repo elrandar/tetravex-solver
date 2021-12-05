@@ -31,6 +31,7 @@ namespace tetrasolver {
         static bool is_solved(const Tetravex& tetravex);
 
         void solve();
+        void solve_full_random();
 
         explicit Solver(Tetravex &tetravex, int k_max, int seed=-1);
     };

@@ -11,6 +11,7 @@ void tetrasolver::Solver::solve() {
     int cost = compute_cost(tetravex_);
     while (k < k_max_) {
         float temp = temperature((float) k / (float) k_max_);
+
         auto permutation = random_permutation();
         int new_cost = compute_cost(tetravex_, permutation);
 
@@ -26,6 +27,26 @@ void tetrasolver::Solver::solve() {
     std::cout << (cost == 0 ? "Solved !" : "Not solved.") << std::endl;
     std::cout << "Current step : " << k << std::endl << "Current cost : " << cost << std::endl;
 }
+
+void tetrasolver::Solver::solve_full_random() {
+    int k = 0;
+    int cost = compute_cost(tetravex_);
+    while (k < k_max_) {
+        auto permutation = random_permutation();
+        int new_cost = compute_cost(tetravex_, permutation);
+
+        if (new_cost < cost) {
+            apply_permutation(tetravex_, permutation);
+            cost = new_cost;
+        }
+        if (cost == 0)
+            break;
+        k++;
+    }
+    std::cout << (cost == 0 ? "Solved !" : "Not solved.") << std::endl;
+    std::cout << "Current step : " << k << std::endl << "Current cost : " << cost << std::endl;
+}
+
 
 bool tetrasolver::Solver::is_solved(const Tetravex &tetravex) {
     for (int i = 0; i < tetravex.board.size(); i++) {
@@ -115,3 +136,5 @@ float tetrasolver::Solver::acceptance_probability(int cost, int new_cost, float 
         return p;
     }
 }
+
+

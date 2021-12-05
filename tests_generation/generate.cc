@@ -3,7 +3,9 @@
 //
 
 #include "generate.hh"
+#include "../solver.hh"
 #include <random>
+#include <algorithm>
 
 namespace tetrasolver {
     bool is_valid(int side, int index, int size) {
@@ -43,6 +45,16 @@ namespace tetrasolver {
                     if (is_valid(j, i, (int) size))
                         tetra.board[i + pair.first][pair.second] = side;
                 }
+            }
+        }
+
+        if (shuffle)
+        {
+            int i = 0;
+            while (Solver::is_solved(tetra)) {
+                std::mt19937 g(seed + i);
+                std::shuffle(tetra.board.begin(), tetra.board.end(), g);
+                i++;
             }
         }
         return tetra;

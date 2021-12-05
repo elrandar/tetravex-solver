@@ -11,27 +11,28 @@
 
 namespace tetrasolver {
     class Solver {
-        Tetravex &tetravex;
-        int k_max;
+        Tetravex &tetravex_;
+        int k_max_;
 
-        std::vector<int> indices_map;
+        std::vector<int> indices_map_;
 
-        std::default_random_engine random_engine;
-        std::uniform_int_distribution<int> distribution;
+        std::default_random_engine random_engine_;
+        std::uniform_int_distribution<int> distribution_;
 
         float temperature(float frac);
         std::pair<int, int> random_permutation();
         void generate_map();
-        int compute_cost(const std::pair<int, int> &permutation);
-        void apply_permutation(const std::pair<int, int> &permutation);
+        static void apply_permutation(Tetravex& tetravex, const std::pair<int, int> &permutation);
         static float acceptance_probability(int cost, int new_cost, float temp);
     public:
+        static int compute_cost(Tetravex& tetravex, const std::pair<int, int> &permutation);
+        static int compute_cost(const Tetravex& tetravex);
 
-        bool is_solved() const;
+        static bool is_solved(const Tetravex& tetravex);
 
         void solve();
 
-        explicit Solver(Tetravex &tetravex, int k_max);
+        explicit Solver(Tetravex &tetravex, int k_max, int seed=-1);
     };
 }
 

@@ -6,7 +6,7 @@
 #define TETRAVEX_SOLVER_GENERATE_HH
 
 
-#include "tetravex.hh"
+#include "../tetravex.hh"
 
 namespace tetrasolver
 {

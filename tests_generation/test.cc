@@ -99,7 +99,7 @@ TEST(Tests_solve_s, Solve_6x6_already_solved)
 }
 
 int k_max_s = 10000000;
-
+int seed = -1;
 
 TEST(Tests_solve, Solve_2x2)
 {
@@ -107,7 +107,7 @@ TEST(Tests_solve, Solve_2x2)
 
     auto tetravex = generate_tetravex(2, 420, true);
 
-    auto solver = Solver(tetravex, k_max_s);
+    auto solver = Solver(tetravex, k_max_s, seed);
     solver.solve();
 
     EXPECT_TRUE(Solver::is_solved(tetravex));
@@ -121,7 +121,7 @@ TEST(Tests_solve, Solve_3x3)
 
     auto tetravex = generate_tetravex(3, 420, true);
 
-    auto solver = Solver(tetravex, k_max_s);
+    auto solver = Solver(tetravex, k_max_s, seed);
     solver.solve();
 
     EXPECT_TRUE(Solver::is_solved(tetravex));
@@ -135,7 +135,7 @@ TEST(Tests_solve, Solve_4x4)
 
     auto tetravex = generate_tetravex(4, 420, true);
 
-    auto solver = Solver(tetravex, k_max_s);
+    auto solver = Solver(tetravex, k_max_s, seed);
     solver.solve();
 
     EXPECT_TRUE(Solver::is_solved(tetravex));
@@ -149,7 +149,7 @@ TEST(Tests_solve, Solve_5x5)
 
     auto tetravex = generate_tetravex(5, 420, true);
 
-    auto solver = Solver(tetravex, k_max_s);
+    auto solver = Solver(tetravex, k_max_s, seed);
     solver.solve();
 
     EXPECT_TRUE(Solver::is_solved(tetravex));
@@ -160,9 +160,9 @@ TEST(Tests_solve, Solve_6x6)
 {
     using namespace tetrasolver;
 
-    auto tetravex = generate_tetravex(6, 420, true);
+    auto tetravex = generate_tetravex(6, 428990, true);
 
-    auto solver = Solver(tetravex, k_max_s);
+    auto solver = Solver(tetravex, k_max_s, seed);
     solver.solve();
 
     EXPECT_TRUE(Solver::is_solved(tetravex));

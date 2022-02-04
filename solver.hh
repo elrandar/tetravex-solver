@@ -18,8 +18,9 @@ namespace tetrasolver {
 
         std::default_random_engine random_engine_;
         std::uniform_int_distribution<int> distribution_;
+        std::uniform_real_distribution<float> distribution_f_;
 
-        float temperature(float frac);
+        float temperature(float frac, float tratio, float tmax);
         std::pair<int, int> random_permutation();
         void generate_map();
         static void apply_permutation(Tetravex& tetravex, const std::pair<int, int> &permutation);

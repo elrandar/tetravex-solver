@@ -8,24 +8,41 @@
 
 void tetrasolver::Solver::solve() {
     int k = 0;
+    float tmin = 0.6;
+    float tmax = 1;
+    float Tfactor = -log(tmax / tmin);
+
+    srand(42);
+
     int cost = compute_cost(tetravex_);
+    int nb_tr = 0;
     while (k < k_max_) {
-        float temp = temperature((float) k / (float) k_max_);
+        float temp = temperature((float) k / (float) k_max_, Tfactor, tmax);
 
         auto permutation = random_permutation();
         int new_cost = compute_cost(tetravex_, permutation);
 
-        float r = ((double) rand() / (RAND_MAX));
+        float r = distribution_f_(random_engine_);
+//
+//        std::cout << "P = " << acceptance_probability(cost, new_cost, temp)
+//                  << ", Tmp = " << temp << '\n';
+//        std::cout << r << '\n';
         if (acceptance_probability(cost, new_cost, temp) > r) {
             apply_permutation(tetravex_, permutation);
             cost = new_cost;
+            nb_tr++;
         }
+
+        if (temp < tmax - 0.8 * (tmax - tmin))
+            k = 0;
+
         if (cost == 0)
             break;
         k++;
     }
     std::cout << (cost == 0 ? "Solved !" : "Not solved.") << std::endl;
-    std::cout << "Current step : " << k << std::endl << "Current cost : " << cost << std::endl;
+    std::cout << "Current step : " << k << std::endl << "Current cost : " << cost << std::endl
+              << "Number of transitions : " << nb_tr << std::endl;
 }
 
 void tetrasolver::Solver::solve_full_random() {
@@ -66,15 +83,16 @@ bool tetrasolver::Solver::is_solved(const Tetravex &tetravex) {
 
 tetrasolver::Solver::Solver(tetrasolver::Tetravex &tetravex, int k_max, int seed)
         : tetravex_(tetravex),
-          k_max_(k_max) {
+          k_max_(k_max),
+          distribution_f_(0, 1){
     if (seed == -1)
         seed = std::chrono::system_clock::now().time_since_epoch().count();
     random_engine_.seed(seed);
     generate_map();
 }
 
-float tetrasolver::Solver::temperature(float frac) {
-    return std::max(0.01f, std::min(1.0f, 1.0f - frac));
+float tetrasolver::Solver::temperature(float frac, float tratio, float tmax) {
+    return tmax * exp(tratio * frac);
 }
 
 std::pair<int, int> tetrasolver::Solver::random_permutation() {

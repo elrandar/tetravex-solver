@@ -7,6 +7,7 @@
 
 #include <iostream>
 #include <vector>
+#include <ostream>
 
 namespace tetrasolver {
     struct Tile {
@@ -19,6 +20,8 @@ namespace tetrasolver {
         Tile();
 
         int &operator[](int i);
+        bool operator==(const Tile& other);
+        bool operator!=(const Tile& other);
     };
 
     class Tetravex {
@@ -29,6 +32,9 @@ namespace tetrasolver {
         Tetravex(unsigned size);
 
         Tetravex(const std::string &input, unsigned size);
+
+        friend std::ostream & operator << (std::ostream &out, const Tetravex &tetra);
+        bool operator==(const Tetravex &other);
     };
 }
 

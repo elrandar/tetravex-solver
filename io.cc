@@ -33,9 +33,9 @@ namespace tetrasolver {
         throw std::invalid_argument("Tetravex must be a square");
     }
 
-    void tetravex_to_file(const Tetravex& tetra, const std::string &path)
+    std::string tetravex_to_str(const Tetravex& tetra)
     {
-        std::ofstream file(path);
+        std::stringstream file;
 
         for (int i = 0; i < tetra.board.size(); i++)
         {
@@ -44,6 +44,14 @@ namespace tetrasolver {
             if (i != tetra.board.size() - 1)
                 file << '\n';
         }
+
+        return file.str();
+    }
+
+    void tetravex_to_file(const Tetravex& tetra, const std::string &path)
+    {
+        std::ofstream file(path);
+        file << tetravex_to_str(tetra);
         file.close();
     }
 }

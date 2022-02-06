@@ -99,7 +99,7 @@ TEST(Tests_solve_s, Solve_6x6_already_solved)
 }
 
 int k_max_s = 10000000;
-int seed = -1;
+int seed = 51;
 
 TEST(Tests_solve, Solve_2x2)
 {
@@ -177,7 +177,7 @@ TEST(Tests_solve_random, Solve_2x2_random)
     auto solver = Solver(tetravex, k_max_s);
     solver.solve_full_random();
 
-    EXPECT_TRUE(!Solver::is_solved(tetravex));
+    EXPECT_FALSE(Solver::is_solved(tetravex));
 }
 
 
@@ -191,7 +191,7 @@ TEST(Tests_solve_random, Solve_3x3_random)
     auto solver = Solver(tetravex, k_max_s);
     solver.solve_full_random();
 
-    EXPECT_TRUE(!Solver::is_solved(tetravex));
+    EXPECT_FALSE(Solver::is_solved(tetravex));
 }
 
 
@@ -205,7 +205,7 @@ TEST(Tests_solve_random, Solve_4x4_random)
     auto solver = Solver(tetravex, k_max_s);
     solver.solve_full_random();
 
-    EXPECT_TRUE(!Solver::is_solved(tetravex));
+    EXPECT_FALSE(Solver::is_solved(tetravex));
 }
 
 
@@ -219,7 +219,7 @@ TEST(Tests_solve_random, Solve_5x5_random)
     auto solver = Solver(tetravex, k_max_s);
     solver.solve_full_random();
 
-    EXPECT_TRUE(!Solver::is_solved(tetravex));
+    EXPECT_FALSE(Solver::is_solved(tetravex));
 }
 
 

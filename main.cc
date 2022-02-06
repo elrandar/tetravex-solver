@@ -17,7 +17,7 @@ int main(int argc, char** argv)
 
     auto solver = tetrasolver::Solver(tetra, 10000000);
 
-    solver.solve();
+    solver.solve(true);
 
     tetrasolver::tetravex_to_file(tetra, argv[2]);
 

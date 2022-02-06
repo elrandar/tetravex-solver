@@ -28,6 +28,7 @@ namespace tetrasolver {
         auto r_e = std::default_random_engine(seed);
         auto distrib = std::uniform_int_distribution(0, 9);
 
+        /*
         std::vector<std::pair<int, int>> neighbor_indexes({std::make_pair(-(int) size, 3),
                                                            std::make_pair(-1, 2),
                                                            std::make_pair(+1, 1),
@@ -46,6 +47,35 @@ namespace tetrasolver {
                         tetra.board[i + pair.first][pair.second] = side;
                 }
             }
+        }
+        */
+
+        // Fill the horizontals.
+        for (unsigned j = 0; j < size - 1; ++j)
+        {
+            for (unsigned i = 0; i < size; ++i)
+            {
+                tetra.board[j*size + i].down = distrib(r_e);
+                tetra.board[(j+1)*size + i].up = tetra.board[j*size + i].down;
+            }
+        }
+
+        for (unsigned j = 0; j < size; ++j)
+        {
+            for (unsigned i = 0; i < size - 1; ++i)
+            {
+                tetra.board[j*size + i].right = distrib(r_e);
+                tetra.board[j*size + i + 1].left = tetra.board[j*size + i].right;
+            }
+        }
+
+        // Fill the borders.
+        for (unsigned i = 0; i < size; ++i)
+        {
+            tetra.board[i].up = distrib(r_e);
+            tetra.board[i*size + size - 1].right= distrib(r_e);
+            tetra.board[size*(size - 1) + i].down = distrib(r_e);
+            tetra.board[i*size].left = distrib(r_e);
         }
 
         if (shuffle)

@@ -63,16 +63,16 @@ namespace tetrasolver {
             // top
             out << "-\n";
             for (int j = 0; j < tetra.size; j++)
-                out << "|  " << tetra.board[i * tetra.size + j].up << "  ";
+                out << "|  " << (int)(tetra.board[i * tetra.size + j].up) << "  ";
             // left right
             out << "|\n";
             for (int j = 0; j < tetra.size; j++)
-                out << "| " << tetra.board[i * tetra.size + j].left << " "
-                            << tetra.board[i * tetra.size + j].right << " ";
+                out << "| " << (int)tetra.board[i * tetra.size + j].left << " "
+                            << (int)tetra.board[i * tetra.size + j].right << " ";
             out << "|\n";
             // bot
             for (int j = 0; j < tetra.size; j++)
-                out << "|  " << tetra.board[i * tetra.size + j].down << "  ";
+                out << "|  " << (int)tetra.board[i * tetra.size + j].down << "  ";
             out << "|\n";
         }
         for (int j = 0; j < tetra.size * 6; j++)

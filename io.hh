@@ -9,6 +9,7 @@
 namespace tetrasolver {
     Tetravex tetravex_from_file(const std::string &path);
     void tetravex_to_file(const Tetravex& tetra, const std::string &path);
+    std::string tetravex_to_str(const Tetravex& tetra);
 }
 
 #endif //TETRAVEX_SOLVER_IO_HH

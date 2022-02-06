@@ -38,6 +38,50 @@ namespace tetrasolver {
     {}
 
     Tile::Tile() : up(-1), left(-1), right(-1), down(-1) {}
+    bool Tetravex::operator==(const Tetravex &other) {
+        if (size != other.size)
+            return false;
+
+        for (int i = 0; i < board.size(); i++)
+        {
+            if (board[i] != other.board[i])
+                return false;
+        }
+
+        return true;
+    }
+
+
+    std::ostream &operator<<(std::ostream &out, const Tetravex &tetra) {
+
+        for (int i = 0; i < tetra.size; i++)
+        {
+
+            // que des plus
+            for (int j = 0; j < tetra.size * 6; j++)
+                out << '-';
+            // top
+            out << "-\n";
+            for (int j = 0; j < tetra.size; j++)
+                out << "|  " << tetra.board[i * tetra.size + j].up << "  ";
+            // left right
+            out << "|\n";
+            for (int j = 0; j < tetra.size; j++)
+                out << "| " << tetra.board[i * tetra.size + j].left << " "
+                            << tetra.board[i * tetra.size + j].right << " ";
+            out << "|\n";
+            // bot
+            for (int j = 0; j < tetra.size; j++)
+                out << "|  " << tetra.board[i * tetra.size + j].down << "  ";
+            out << "|\n";
+        }
+        for (int j = 0; j < tetra.size * 6; j++)
+            out << '-';
+        out << "-\n";
+
+        return out;
+    }
+
 
     char& Tile::operator[](int i) {
         switch (i) {
@@ -54,26 +98,20 @@ namespace tetrasolver {
         }
     }
 
-    std::ostream& operator<<(std::ostream& os, const Tetravex& t)
-    {
-        int size = t.size;
-        for (unsigned j = 0; j < t.size; ++j)
-        {
-            for (unsigned i = 0; i < size; ++i)
-                os << "  " << (int)t.board[j*size + i].up << "  |";
-            os << '\n';
-            for (unsigned i = 0; i < size; ++i)
-                os << ' ' << (int)t.board[j*size + i].left
-                   << ' ' << (int)t.board[j*size + i].right << " |";
-            os << '\n';
-            for (unsigned i = 0; i < size; ++i)
-                os << "  " << (int)t.board[j*size + i].down << "  |";
-            os << '\n';
+    bool Tile::operator==(const Tile &other) {
+        auto vec1 = std::vector<int>({left, right, up, down});
+        auto vec2 = std::vector<int>({other.left, other.right, other.up, other.down});
 
-            for (unsigned i = 0; i < t.size; ++i)
-                os << "------";
-            os << '\n';
+        for (int i = 0; i < vec1.size(); i++)
+        {
+            if (vec1[i] != vec2[i])
+                return false;
         }
-        return os;
+
+        return true;
+    }
+
+    bool Tile::operator!=(const Tile &other) {
+        return !operator==(other);
     }
 }

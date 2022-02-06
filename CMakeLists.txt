@@ -8,7 +8,7 @@ add_executable(
         tetravex.cc
         io.cc
         solver.cc
-        tests_generation/generate.cc)
+        tests/generate.cc)
 
 include(FetchContent)
 FetchContent_Declare(
@@ -26,9 +26,10 @@ enable_testing()
 
 add_executable(
         tests
-        tests_generation/test.cc
+        io.cc
+        tests/test.cc
         solver.cc
-        tests_generation/generate.cc
+        tests/generate.cc
         tetravex.cc
 )
 target_link_libraries(
